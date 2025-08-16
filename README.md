@@ -31,8 +31,8 @@ ALLOWED_ORIGINS=http://localhost:3000
 
 ```bash
 npm run dev
-# GraphQL endpoint: http://127.0.0.1:8787/graphql
-# Health:          http://127.0.0.1:8787/health
+# GraphQL endpoint: http://127.0.0.1:8787/aichat/graphql
+# Health:          http://127.0.0.1:8787/aichat/health
 ```
 
 4) Deploy
@@ -45,7 +45,7 @@ wrangler deploy
 
 ## GraphQL
 
-Endpoint: `/graphql`
+Endpoint: `/aichat/graphql`
 
 Schema highlights:
 - Query: `health`, `models(provider)`
@@ -122,4 +122,3 @@ mutation {
 - Auth (optional): add a simple client token via `CLIENT_TOKEN` and check in `src/index.ts` if needed.
 - DeepSeek: uses OpenAI-compatible API via `DEEPSEEK_BASE_URL` and `DEEPSEEK_API_KEY`.
 - Streams: initial version is non-streaming; can extend with GraphQL SSE later.
-

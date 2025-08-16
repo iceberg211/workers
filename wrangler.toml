@@ -12,3 +12,8 @@ ALLOWED_ORIGINS = "*"
 [observability]
 enabled = true
 
+# Bind the worker to your custom domain path
+routes = [
+  { pattern = "weihe.life/aichat/graphql*", zone_name = "weihe.life" },
+  { pattern = "weihe.life/aichat/health", zone_name = "weihe.life" }
+]

@@ -3,7 +3,7 @@
 本服务基于 Cloudflare Workers 与 GraphQL Yoga，整合 OpenAI 与 DeepSeek（OpenAI 兼容）模型，提供统一的 GraphQL 接口用于聊天与向量嵌入。
 
 - 运行时：Cloudflare Workers（通过 Wrangler 构建/部署）
-- API 层：GraphQL（`/graphql`）
+- API 层：GraphQL（`/aichat/graphql`）
 - 语言：TypeScript / ESM
 - AI SDK：OpenAI 官方 SDK（通过 `baseURL` 切换 DeepSeek）
 
@@ -28,8 +28,8 @@ ALLOWED_ORIGINS=http://localhost:3000
 
 ```bash
 npm run dev
-# GraphQL: http://127.0.0.1:8787/graphql
-# Health : http://127.0.0.1:8787/health
+# GraphQL: http://127.0.0.1:8787/aichat/graphql
+# Health : http://127.0.0.1:8787/aichat/health
 ```
 
 4) 部署到 Cloudflare
@@ -42,9 +42,9 @@ npm run deploy
 
 ## 端点说明
 
-- `GET /health`：健康检查，返回 `ok`
-- `GET /graphql`：GraphiQL（开发界面）
-- `POST /graphql`：GraphQL 请求（生产与集成使用）
+- `GET /aichat/health`：健康检查，返回 `ok`
+- `GET /aichat/graphql`：GraphiQL（开发界面）
+- `POST /aichat/graphql`：GraphQL 请求（生产与集成使用）
 
 CORS：通过环境变量 `ALLOWED_ORIGINS` 控制，逗号分隔白名单或 `*`（开发便捷）。
 
@@ -154,13 +154,13 @@ mutation {
 - 健康检查：
 
 ```bash
-curl -i http://127.0.0.1:8787/health
+curl -i http://127.0.0.1:8787/aichat/health
 ```
 
 - 模型列表：
 
 ```bash
-curl -s http://127.0.0.1:8787/graphql \
+curl -s http://127.0.0.1:8787/aichat/graphql \
   -H "Content-Type: application/json" \
   -d '{"query":"query($p:Provider){ models(provider:$p){ id provider label } }","variables":{"p":"OPENAI"}}'
 ```
@@ -168,7 +168,7 @@ curl -s http://127.0.0.1:8787/graphql \
 - Chat（OpenAI）：
 
 ```bash
-curl -s http://127.0.0.1:8787/graphql \
+curl -s http://127.0.0.1:8787/aichat/graphql \
   -H "Content-Type: application/json" \
   -d '{"query":"mutation($input:ChatInput!){ chat(input:$input){ id provider model content usage{ totalTokens } } }","variables":{"input":{"provider":"OPENAI","model":"gpt-4o-mini","messages":[{"role":"user","content":"Say hi in 5 words"}],"temperature":0.3}}}'
 ```

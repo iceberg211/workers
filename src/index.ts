@@ -3,7 +3,7 @@ import { schema } from './schema';
 import type { Env } from './types';
 import { corsHeaders } from './ai/provider';
 
-const GRAPHQL_ENDPOINT = '/graphql';
+const GRAPHQL_ENDPOINT = '/aichat/graphql';
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
@@ -14,7 +14,7 @@ export default {
 
     const url = new URL(request.url);
 
-    if (url.pathname === '/health') {
+    if (url.pathname === '/aichat/health') {
       return new Response('ok', { status: 200, headers: { ...corsHeaders(request, env) } });
     }
 

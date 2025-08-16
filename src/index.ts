@@ -29,7 +29,7 @@ export default {
       }
     });
 
-    const res = await yoga.fetch(request, env, ctx);
+    const res = await yoga.fetch(request, { env });
     const headers = new Headers(res.headers);
     const cors = corsHeaders(request, env);
     Object.entries(cors).forEach(([k, v]) => headers.set(k, v));

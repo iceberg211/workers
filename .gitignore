@@ -1,0 +1,16 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Build / Tooling
+dist/
+.DS_Store
+
+# Wrangler / Workers
+.wrangler/
+.dev.vars
+
+# Env
+.env
+.env.*

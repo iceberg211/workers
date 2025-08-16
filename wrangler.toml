@@ -1,0 +1,14 @@
+name = "cf-workers-graphql-ai"
+main = "src/index.ts"
+compatibility_date = "2024-08-01"
+workers_dev = true
+
+[vars]
+# Optional defaults; override via `wrangler secret put` for keys.
+DEEPSEEK_BASE_URL = "https://api.deepseek.com/v1"
+# Comma-separated whitelist of origins for CORS, e.g. "https://app.example.com,https://admin.example.com"
+ALLOWED_ORIGINS = "*"
+
+[observability]
+enabled = true
+

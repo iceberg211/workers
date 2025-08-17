@@ -1,6 +1,8 @@
 name = "cf-workers-graphql-ai"
 main = "src/index.ts"
-compatibility_date = "2024-08-01"
+compatibility_date = "2025-07-18"
+compatibility_flags = ["nodejs_compat"]
+
 workers_dev = true
 
 [vars]

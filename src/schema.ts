@@ -1,6 +1,7 @@
 import { createSchema } from 'graphql-yoga';
 import { chatResolver, embeddingsResolver } from './resolvers/chat';
 import { modelsResolver } from './resolvers/models';
+import { agentRunResolver } from './resolvers/agent';
 
 export const schema = createSchema({
   typeDefs: /* GraphQL */ `
@@ -43,6 +44,25 @@ export const schema = createSchema({
     type EmbeddingVector { index: Int!, embedding: [Float!]! }
     type EmbeddingResult { model: String!, provider: Provider!, data: [EmbeddingVector!]!, usage: Usage }
 
+    input AgentRunInput {
+      provider: Provider
+      model: String!
+      prompt: String!
+      urlAllowlist: [String!]
+      temperature: Float
+      maxTokens: Int
+    }
+
+    type ToolCall { name: String!, args: String, ok: Boolean, error: String }
+    type AgentRunResult {
+      id: String!
+      provider: Provider!
+      model: String!
+      output: String!
+      toolCalls: [ToolCall!]!
+      durationMs: Int!
+    }
+
     type Query {
       health: String!
       models(provider: Provider): [Model!]!
@@ -51,6 +71,7 @@ export const schema = createSchema({
     type Mutation {
       chat(input: ChatInput!): ChatCompletion!
       embeddings(input: EmbeddingInput!): EmbeddingResult!
+      agentRun(input: AgentRunInput!): AgentRunResult!
     }
   `,
   resolvers: {
@@ -60,8 +81,8 @@ export const schema = createSchema({
     },
     Mutation: {
       chat: chatResolver,
-      embeddings: embeddingsResolver
+      embeddings: embeddingsResolver,
+      agentRun: agentRunResolver
     }
   }
 });
-

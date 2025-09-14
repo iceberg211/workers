@@ -53,7 +53,7 @@ wrangler deploy
 ### 已有能力
 
 - Query：`health`、`models(provider)`
-- Mutation：`chat(input)`、`embeddings(input)`
+- Mutation：`chat(input)`、`embeddings(input)`、`codeReview(input)`
 
 ### 新增（Mastra 极简 Agent）
 
@@ -171,6 +171,29 @@ mutation AgentOnceDeepSeek {
   ) {
     output
     toolCalls { name args ok }
+  }
+}
+```
+
+代码评审（Code Review）：
+
+```graphql
+mutation Review {
+  codeReview(
+    input: {
+      provider: OPENAI
+      model: "gpt-4o-mini"
+      filename: "src/app.ts"
+      language: "typescript"
+      goals: ["Correctness", "Security", "Readability"]
+      code: """
+      export function add(a:number, b:number){return a+b}
+      """
+    }
+  ) {
+    summary
+    score
+    issues { severity title description suggestion location { path lineStart lineEnd } }
   }
 }
 ```

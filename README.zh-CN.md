@@ -61,6 +61,10 @@ wrangler deploy
 - 工具：
   - `http_fetch`：仅允许访问白名单域名（allowlist）的 URL，返回文本内容。
   - `now`：返回当前时间（ISO 与时间戳）。
+  - `echo`：回显输入文本与长度。
+  - `math`：四则运算（add、sub、mul、div）。
+  - `random_int`：生成 [min, max]（含端点）的随机整数。
+  - `extract_title`：从小型 HTML 字符串中提取 标题（title）。
 - 默认白名单（若请求未提供 `urlAllowlist`）：`example.com`、`developer.mozilla.org`、`api.github.com`。
 
 新增的 SDL 片段：

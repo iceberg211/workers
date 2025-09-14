@@ -12,14 +12,14 @@ export const agentRunResolver = async (
   const { agent, runtimeContext } = createMinimalAgent(ctx.env, { provider, model, urlAllowlist: allow });
 
   const start = Date.now();
-  const res = await agent.generate({
-    messages: [
-      { role: 'user', content: prompt }
-    ],
-    maxSteps: 2,
-    temperature: temperature ?? 0.3,
-    runtimeContext
-  } as any);
+  const res = await (agent as any).generate(
+    [{ role: 'user', content: prompt }],
+    {
+      maxSteps: 2,
+      temperature: temperature ?? 0.3,
+      runtimeContext
+    }
+  );
 
   // agent.generate returns { text, toolCalls, ... } via ai SDK compatibility
   const output = (res as any).text ?? '';
